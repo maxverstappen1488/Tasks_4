@@ -14,9 +14,9 @@ using namespace std::placeholders;  // _1, _2, ...
  * Переопределяет оператор() для сравнения модулей двух целых чисел.
  * Возвращает true, если модуль первого числа строго меньше модуля второго.
  */
-struct less_abs : public std::function<bool(int, int)> {
+struct less_abs : public std::function<bool(const int, const int)> {
     // Константная функция-член, сравнивающая абсолютные значения
-    bool operator()(int a, int b) const {
+    bool operator()(const int a, const int b) const {
         return std::abs(a) < std::abs(b);
     }
 };
@@ -58,12 +58,9 @@ int main() {
     int n;
     std::cout << "Enter number of elements: ";
     std::cin >> n;
-    std::cout << "Generate vector: ";
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(-99, 99);
+    std::cout << "Enter " << n << " integers: ";
     V.resize(n);
-    std::generate(V.begin(), V.end(), [&]() { return dis(gen); });
+    std::copy_n(std::istream_iterator<int>(std::cin), n, V.begin());
     for (int x : V) {
         std::cout << x << ' ';
     }
