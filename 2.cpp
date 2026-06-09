@@ -1,3 +1,4 @@
+#include <iostream>
 #include <list>
 #include <numeric>   // для std::iota
 #include <cstdlib>   // для rand, srand
