@@ -1,5 +1,8 @@
-#include <iostream>
 #include <list>
+#include <numeric>   // для std::iota
+#include <cstdlib>   // для rand, srand
+#include <ctime>     // для time
+
 using namespace std;
 
 /**
@@ -7,10 +10,10 @@ using namespace std;
  * @param L - список целых чисел для вывода
  */
 void print_list(const list<int>& L) {
-	for (const int& i : L) {
-		cout << i << ' ';
-	}
-	cout << endl;
+    for (const int& i : L) {
+        cout << i << ' ';
+    }
+    cout << endl;
 }
 
 /**
@@ -20,11 +23,12 @@ void print_list(const list<int>& L) {
  *          (с нечетными индексами: 1, 3, 5...) из первой половины списка
  */
 void del_first_half_odd_indexes(list<int>& L) {
-	list<int>::iterator end = L.begin();
-	advance(end, L.size() / 2);
-	for (list<int>::iterator it = L.begin(); it != end; ++it) {
-		L.erase(it++);
-	}
+    auto end = L.begin();
+    advance(end, L.size() / 2);
+    for (auto it = L.begin(); it != end; ++it) {
+        it = L.erase(it);   // удаляем текущий элемент, it указывает на следующий
+        if (it == end) break;
+    }
 }
 
 /**
@@ -34,15 +38,16 @@ void del_first_half_odd_indexes(list<int>& L) {
  *          заполняет его последовательными числами, выводит исходный список,
  *          применяет алгоритм удаления и выводит результат
  */
-int main()
-{
-	srand(time(0));
-	size_t size = (rand() % 9+1)*4;//от 1 до 9 * 4
-	list<int>L;
-	for (size_t i = 1; i < size+1; i++) {
-		L.push_back(i);
-	}
-	print_list(L);//Вывод входящих данных
-	del_first_half_odd_indexes(L);//Алгоритм по заданию
-	print_list(L);//Вывод результата
+int main() {
+    srand(time(0));
+    size_t size = (rand() % 9 + 1) * 4;   // от 4 до 36
+
+    list<int> L(size);                   // создаём список нужного размера
+    iota(L.begin(), L.end(), 1);         // заполняем числами 1,2,...,size
+
+    print_list(L);                       // вывод исходных данных
+    del_first_half_odd_indexes(L);       // алгоритм по заданию
+    print_list(L);                       // вывод результата
+
+    return 0;
 }
