@@ -1,8 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <map>
-#include <algorithm>
+#include <iostream> 
+#include <vector> 
+#include <string> 
+#include <map> 
+#include <algorithm> 
 
 using namespace std;
 
@@ -17,9 +17,16 @@ using namespace std;
  * 5. Выводит размер V и все пары на экран
  */
 int main() {
-    // Исходные данные (можно изменить или ввести с клавиатуры)
-    vector<string> V1 = { "CAT", "DOG", "BIRD", "FISH" };
-    vector<string> V2 = { "ANT", "BAG", "CAR", "RAG", "ELEPHANT" };
+    // Исходные данные
+    size_t n;
+    cout << "Number of strings for V1: ";
+    cin >> n;
+    vector<string> V1(n);
+    copy_n(istream_iterator<string>(cin), n, V1.begin());
+    cout << "Number of strings for V2: ";
+    cin >> n;
+    vector<string> V2(n);
+    copy_n(istream_iterator<string>(cin), n, V2.begin());
 
     /**
      * @brief - группировка слов из V2 по их длине
@@ -31,7 +38,7 @@ int main() {
     map<int, vector<string>> M;
     for (auto it = V2.begin(); it != V2.end(); ++it) {
         int len = it->length();
-        M[len].push_back(*it);               // сохраняется порядок из V2
+        M[len].push_back(*it);               // сохраняется порядок из V2 
     }
 
     /**
