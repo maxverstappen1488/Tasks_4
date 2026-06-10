@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <cmath>       // для std::abs
-#include <random>
+#include <iterator>    // для std::istream_iterator
 
 using namespace std::placeholders;  // _1, _2, ...
 
@@ -26,7 +26,7 @@ struct less_abs : public std::function<bool(const int, const int)> {
  *
  * @details Выполняет следующие операции:
  * 1. Запрашивает и проверяет пороговое значение K.
- * 2. Генерирует вектор случайных целых чисел.
+ * 2. Считывает вектор целых чисел с клавиатуры.
  * 3. Удаляет элементы, модуль которых меньше K.
  * 4. Выводит размер и содержимое результирующего вектора.
  */
@@ -47,20 +47,24 @@ int main() {
     }
 
     /**
-     * @brief - генерация вектора случайных чисел
+     * @brief - считывание вектора чисел с клавиатуры
      *
-     * @details Запрашивает количество элементов n. Создает вектор V
-     * размера n и заполняет его случайными целыми числами
-     * в диапазоне от -99 до 99 с использованием генератора mt19937.
-     * Выводит сгенерированный вектор на экран.
+     * @details Считывает целые числа с клавиатуры до конца ввода (EOF).
+     * Для завершения ввода используйте Ctrl+D (Linux/Mac) или Ctrl+Z (Windows).
+     * Выводит считанный вектор на экран.
      */
     std::vector<int> V;
-    int n;
-    std::cout << "Enter number of elements: ";
-    std::cin >> n;
-    std::cout << "Enter " << n << " integers: ";
-    V.resize(n);
-    std::copy_n(std::istream_iterator<int>(std::cin), n, V.begin());
+    std::cout << "Enter integers (Ctrl+D/Ctrl+Z to finish): ";
+    
+    // Читаем все целые числа до конца потока
+    std::copy(std::istream_iterator<int>(std::cin),
+              std::istream_iterator<int>(),
+              std::back_inserter(V));
+    
+    // Очищаем состояние потока после EOF
+    std::cin.clear();
+    
+    std::cout << "You entered: ";
     for (int x : V) {
         std::cout << x << ' ';
     }
