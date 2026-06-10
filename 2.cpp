@@ -27,15 +27,14 @@ void del_first_half_odd_indexes(list<int>& L);
  */
 
 int main() {
-    srand(time(0));
-    size_t size = (rand() % 9 + 1) * 4;   // от 4 до 36 
-
     list<int> L;                   
-    copy_n(istream_iterator<int>(cin), size, back_inserter(L));    
+    
+    cout << "Введите числа (завершите Ctrl+D или Ctrl+Z): ";
+    copy(istream_iterator<int>(cin), istream_iterator<int>(), back_inserter(L));    
 
-    print_list(L);                       // вывод исходных данных 
-    del_first_half_odd_indexes(L);       // алгоритм по заданию 
-    print_list(L);                       // вывод результата 
+    print_list(L);                       
+    del_first_half_odd_indexes(L);       
+    print_list(L);                       
 
     return 0;
 }
