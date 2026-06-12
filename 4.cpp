@@ -54,7 +54,7 @@ int main() {
      * Выводит считанный вектор на экран.
      */
     std::vector<int> V;
-    std::cout << "Enter integers (Ctrl+D/Ctrl+Z to finish): ";
+    std::cout << "Enter integers (Ctrl+D(mac)/Ctrl+Z(win) to finish): ";
     
     // Читаем все целые числа до конца потока
     std::copy(std::istream_iterator<int>(std::cin),
