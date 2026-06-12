@@ -1,6 +1,6 @@
-#include <iostream>
-#include <list> 
-#include <iterator> 
+#include <iostream> 
+#include <list>  
+#include <iterator>  
 
 using namespace std;
 
@@ -21,7 +21,7 @@ void print_list(const list<int>& L);
  *          возвращаемое значение не сохраняется, в конце итерации
  *          выполняется дополнительный инкремент ++i.
  */
-void del_first_half_odd_indexes(list<int>& L); 
+void del_first_half_odd_indexes(list<int>& L);
 
 /**
  * @brief точка входа в программу
@@ -31,21 +31,21 @@ void del_first_half_odd_indexes(list<int>& L);
  *          применяет алгоритм удаления и выводит результат
  */
 int main() {
-    list<int> L;                   
-    
-    cout << "Введите числа (количество должно быть кратно 4, завершите Ctrl+D/Ctrl+Z): ";
-    copy(istream_iterator<int>(cin), istream_iterator<int>(), back_inserter(L));    
+    list<int> L;
 
-    // Проверяем, что размер кратен 4
+    cout << "Введите числа (количество должно быть кратно 4, завершите Ctrl+D/Ctrl+Z): ";
+    copy(istream_iterator<int>(cin), istream_iterator<int>(), back_inserter(L));
+
+    // Проверяем, что размер кратен 4 
     if (L.size() % 4 != 0) {
         cout << "Ошибка: количество чисел должно быть кратно 4!" << endl;
         cout << "Введено: " << L.size() << " чисел" << endl;
         return 1;
     }
 
-    print_list(L);                       // вывод исходных данных 
-    del_first_half_odd_indexes(L);       // алгоритм по заданию 31
-    print_list(L);                       // вывод результата 
+    print_list(L);                       // вывод исходных данных  
+    del_first_half_odd_indexes(L);       // алгоритм по заданию 31 
+    print_list(L);                       // вывод результата  
 
     return 0;
 }
@@ -71,10 +71,7 @@ void print_list(const list<int>& L) {
 void del_first_half_odd_indexes(list<int>& L) {
     auto end = L.begin();
     advance(end, L.size() / 2);
-    
-    auto i = L.begin();
-    while (i != end) {
-        L.erase(i++);   // удаляем текущий элемент, i переходит на следующий
-        ++i;            // дополнительный инкремент — пропускаем следующий элемент
+    for (auto it = L.begin(); it != end; ++it) {
+        it = L.erase(it);   // удаляем текущий элемент, it указывает на следующий 
     }
 }
