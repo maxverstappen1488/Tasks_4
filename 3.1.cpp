@@ -18,13 +18,16 @@ using namespace std;
  */
 int main() {
     // Исходные данные
+    int input;
     size_t n;
     cout << "Number of strings for V1: ";
-    cin >> n;
+    cin >> input;
+    n = (size_t)input;
     vector<string> V1(n);
     copy_n(istream_iterator<string>(cin), n, V1.begin());
     cout << "Number of strings for V2: ";
-    cin >> n;
+    cin >> input;
+    n = (size_t)input;
     vector<string> V2(n);
     copy_n(istream_iterator<string>(cin), n, V2.begin());
 
@@ -97,3 +100,4 @@ int main() {
 
     return 0;
 }
+
