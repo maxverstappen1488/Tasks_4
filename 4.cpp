@@ -22,6 +22,20 @@ struct less_abs : public std::function<bool(const int, const int)> {
 };
 
 /**
+ * @brief - шаблонная функция для вывода содержимого вектора
+ *
+ * @details Принимает константную ссылку на вектор и последовательно выводит
+ * все его элементы в стандартный поток вывода (std::cout), разделяя их пробелами.
+ * Символ перевода строки не добавляется, что позволяет гибко форматировать
+ * вывод в месте вызова функции.
+ *
+ * @tparam T - тип элементов, хранящихся в векторе
+ * @param V - константная ссылка на вектор, подлежащий выводу
+ */
+template <typename T>
+void printMass(const std::vector<T>& V);
+
+/**
  * @brief - основная функция программы
  *
  * @details Выполняет следующие операции:
@@ -38,7 +52,7 @@ int main() {
      * Если введенное значение меньше или равно нулю, выводит сообщение
      * об ошибке и завершает программу.
      */
-    int K;
+    int K=0;
     std::cout << "Enter K (>0): ";
     std::cin >> K;
     if (K <= 0) {
@@ -55,19 +69,17 @@ int main() {
      */
     std::vector<int> V;
     std::cout << "Enter integers (Ctrl+D(mac)/Ctrl+Z(win) to finish): ";
-    
+
     // Читаем все целые числа до конца потока
     std::copy(std::istream_iterator<int>(std::cin),
-              std::istream_iterator<int>(),
-              std::back_inserter(V));
-    
+        std::istream_iterator<int>(),
+        std::back_inserter(V));
+
     // Очищаем состояние потока после EOF
     std::cin.clear();
-    
+
     std::cout << "You entered: ";
-    for (int x : V) {
-        std::cout << x << ' ';
-    }
+    printMass(V);
     std::cout << std::endl;
 
     /**
@@ -90,10 +102,15 @@ int main() {
      */
     std::cout << "Size after removal: " << V.size() << std::endl;
     std::cout << "Remaining elements:";
-    for (int x : V) {
-        std::cout << " " << x;
-    }
+    printMass(V);
     std::cout << std::endl;
 
     return 0;
+}
+
+template <typename T>
+void printMass(const std::vector<T>& V) {
+    for (int x : V) {
+        std::cout << " " << x;
+    }
 }
